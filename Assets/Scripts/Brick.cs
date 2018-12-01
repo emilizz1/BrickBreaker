@@ -1,31 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Brick : MonoBehaviour {
-
-	private bool isBreakable;
-	private int timesHit ;
-	private LevelManager levelManager;
-
+public class Brick : MonoBehaviour
+{
 	public GameObject smoke;
 	public Sprite[] hitSprites;
 	public static int brickCount = 0;
 	public AudioClip crack;
 
+    private bool isBreakable;
+    private int timesHit;
+    private LevelManager levelManager;
 
-	// Use this for initialization
-	void Start () {
+    void Start () {
 		isBreakable = (this.tag == "Breakable");
 		if (isBreakable) {
 			brickCount ++;
 		}
 		timesHit = 0;
 		levelManager = GameObject.FindObjectOfType<LevelManager> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
 	}
 
 	void OnCollisionEnter2D(Collision2D collider)
@@ -50,7 +43,8 @@ public class Brick : MonoBehaviour {
 
 	void PuffSmoke(){
 		GameObject smokePuff = Instantiate(smoke, transform.position, Quaternion.identity) as GameObject;
-		smokePuff.GetComponent<ParticleSystem>().startColor = gameObject.GetComponent<SpriteRenderer>().color;
+        var smakePuffParticles = smokePuff.GetComponent<ParticleSystem>().main;
+        smakePuffParticles.startColor = gameObject.GetComponent<SpriteRenderer>().color;
 	}
 
 	void LoadSprites()
