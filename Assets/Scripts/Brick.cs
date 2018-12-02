@@ -12,7 +12,8 @@ public class Brick : MonoBehaviour
     private int timesHit;
     private LevelManager levelManager;
 
-    void Start () {
+    void Start ()
+    {
 		isBreakable = (this.tag == "Breakable");
 		if (isBreakable) {
 			brickCount ++;
@@ -24,24 +25,30 @@ public class Brick : MonoBehaviour
 	void OnCollisionEnter2D(Collision2D collider)
 	{
 		AudioSource.PlayClipAtPoint (crack, transform.position,0.75f);
-		if (isBreakable) {
+		if (isBreakable)
+        {
 			HandleHits ();
 		}
 	}
 	void HandleHits()
 	{
 		timesHit++;
-		if (timesHit >= hitSprites.Length +1) {
+		if (timesHit >= hitSprites.Length +1)
+        {
 			brickCount--;
 			levelManager.BrickDestroyed();
 			PuffSmoke();
+            FindObjectOfType<UpgradeSpawner>().SpawnRequest(transform.position);
 			Destroy (gameObject);
-		} else {
+		}
+        else
+        {
 			LoadSprites ();
 		}
 	}
 
-	void PuffSmoke(){
+	void PuffSmoke()
+    {
 		GameObject smokePuff = Instantiate(smoke, transform.position, Quaternion.identity) as GameObject;
         var smakePuffParticles = smokePuff.GetComponent<ParticleSystem>().main;
         smakePuffParticles.startColor = gameObject.GetComponent<SpriteRenderer>().color;
@@ -50,7 +57,8 @@ public class Brick : MonoBehaviour
 	void LoadSprites()
 	{
 		int index = timesHit-1;
-		if (hitSprites [index]) {
+		if (hitSprites [index])
+        {
 			this.GetComponent<SpriteRenderer> ().sprite = hitSprites [index];
 		}
 	}

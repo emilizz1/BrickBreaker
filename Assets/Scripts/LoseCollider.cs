@@ -1,17 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LoseCollider : MonoBehaviour {
-
-	private LevelManager levelManager;
-
-	void Start()
-	{
-		levelManager = GameObject.FindObjectOfType<LevelManager> ();
-	}
-
+public class LoseCollider : MonoBehaviour
+{
 	void OnTriggerEnter2D (Collider2D collider)
 	{
-		levelManager.LoadLevel (2);
-	}
+        if (FindObjectsOfType<Ball>().Length <= 1)
+        {
+            FindObjectOfType<LevelManager>().LoadLevel(2);
+        }
+        Destroy(collider.gameObject);
+    }
 }
