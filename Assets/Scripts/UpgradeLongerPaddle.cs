@@ -5,11 +5,15 @@ using UnityEngine;
 public class UpgradeLongerPaddle : Upgrade
 {
     [SerializeField] float ValueToAdd;
+    [SerializeField] float MaxPaddleValue;
 
     public override void GetUpgrade()
     {
         var paddleScale = FindObjectOfType<Paddle>().transform.localScale;
-        paddleScale.x += ValueToAdd;
-        FindObjectOfType<Paddle>().transform.localScale = paddleScale;
+        if (paddleScale.x < MaxPaddleValue)
+        {
+            paddleScale.x += ValueToAdd;
+            FindObjectOfType<Paddle>().transform.localScale = paddleScale;
+        }
     }
 }
