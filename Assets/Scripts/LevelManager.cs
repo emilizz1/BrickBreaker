@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour {
+public class LevelManager : MonoBehaviour
+{
 
-	public void LoadLevel (int sceneNumer)
+    void Start()
+    {
+        Cursor.visible = true;
+    }
+
+    public void LoadLevel (int sceneNumer)
 	{
 		Brick.brickCount = 0;
         SceneManager.LoadScene(sceneNumer);
