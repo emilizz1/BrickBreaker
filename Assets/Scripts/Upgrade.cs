@@ -8,17 +8,10 @@ public class Upgrade : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 8 || collision.gameObject.layer == 9)
+        if (collision.gameObject.GetComponent<Paddle>())
         {
-            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            GetUpgrade();
         }
-        else
-        {
-            if (collision.gameObject.GetComponent<Paddle>())
-            {
-                GetUpgrade();
-            }
-            Destroy(gameObject);
-        }
+        Destroy(gameObject);
     }
 }

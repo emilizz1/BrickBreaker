@@ -8,13 +8,13 @@ public class Ball : MonoBehaviour
 	private Paddle padle;
 	private Vector3 paddleToBallVector;
 	private bool hasStarted = false;
-    Rigidbody2D rigidbody;
+    Rigidbody2D myRigidbody;
     
 	void Start ()
     {
 		padle = GameObject.FindObjectOfType<Paddle>();
 		paddleToBallVector = this.transform.position - padle.transform.position;
-        rigidbody = GetComponent<Rigidbody2D>();
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 	
 	void Update ()
@@ -25,12 +25,12 @@ public class Ball : MonoBehaviour
 			if (Input.GetMouseButtonDown (0))
             {
 				hasStarted = true;
-                rigidbody.velocity = new Vector2(Random.Range(-2f, 2f), 10f);
+                myRigidbody.velocity = new Vector2(2f, 10f);
 			}
 		}
-        else if(rigidbody.velocity.magnitude < clampValue / 2)
+        else if(myRigidbody.velocity.magnitude < clampValue / 2)
         {
-            rigidbody.AddForce(new Vector2(10f, 10f));
+            myRigidbody.AddForce(new Vector2(10f, 10f));
         }
 
 	}
@@ -41,8 +41,8 @@ public class Ball : MonoBehaviour
 		if (hasStarted)
         {
 			GetComponent<AudioSource>().Play ();
-            rigidbody.velocity += tweak;
-            rigidbody.velocity = Vector2.ClampMagnitude(rigidbody.velocity, clampValue);
+            myRigidbody.velocity += tweak;
+            myRigidbody.velocity = Vector2.ClampMagnitude(myRigidbody.velocity, clampValue);
 		}
 	}
 }
